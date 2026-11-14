@@ -10,6 +10,7 @@
 <meta property="og:title" content="공간대여 손님 안내문 생성기 (무료)">
 <meta property="og:description" content="업종만 고르면 예약 확정·전날·퇴실·후기 문자 4종을 한국어·영어로 바로 만들어 복사하는 사장님용 무료 도구.">
 <meta property="og:url" content="https://eddpositive.github.io/guest-msg/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "파티룸 예약 확정 문자는 언제 보내야 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "예약이 확정되자마자 보내는 게 좋습니다. 늦을수록 예약이 된 게 맞는지 묻는 문의가 늘어납니다."}}, {"@type": "Question", "name": "출입 비밀번호는 언제 알려줘야 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "확정 문자에는 넣지 않고 이용 전날 저녁 리마인드 문자에 넣는 것이 안전합니다. 비밀번호는 예약마다 바꾸는 것을 권합니다."}}, {"@type": "Question", "name": "후기 요청 문자는 언제 보내면 좋나요?", "acceptedAnswer": {"@type": "Answer", "text": "퇴실 2시간 뒤처럼 기억이 생생할 때 보내야 후기를 남길 가능성이 높습니다."}}, {"@type": "Question", "name": "외국인 손님에게 보낼 영어 안내문도 만들 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 상단의 English를 누르면 같은 내용이 영어 안내문으로 바뀝니다."}}]}</script>
 <style>
 :root{--bg:#f6f4ef;--ink:#1d1b18;--sub:#6b665d;--line:#e2ddd2;--card:#fff;--acc:#2f5d50;--acc2:#e8f0ec}
 *{box-sizing:border-box}
@@ -103,6 +104,7 @@ footer{font-size:12px;color:var(--sub);margin-top:24px}
   <p><b>비밀번호</b>는 예약마다 바꾸는 게 안전해요. 확정 문자에는 넣지 않고 전날 리마인드에만 넣었어요.</p>
 </div>
 
+<p class="tip">업종별 페이지: <a href="party/">파티룸</a> · <a href="study/">스터디룸·회의실</a> · <a href="music/">연습실·합주실</a> · <a href="studio/">촬영 스튜디오</a></p>
 <footer>공간대여 사장님을 위한 무료 도구입니다. 매주 소상공인 지원금 공고를 정리한 무료 소식은 카카오톡 오픈채팅 "사장님 지원금 레이더"에서 받아 보실 수 있어요.</footer>
 </div>
 
@@ -120,7 +122,7 @@ const keep=['type','name','addr','way','entry','wifi','park','rules','out','tel'
 let lang='ko';
 
 function load(){let s=null;try{s=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
-  if(s){keep.forEach(k=>{if(s[k]!=null)$(k).value=s[k]});if(s.lang)lang=s.lang}else applyPreset(true);
+  if(s){keep.forEach(k=>{if(s[k]!=null)$(k).value=s[k]});if(s.lang)lang=s.lang}else{if(document.body.dataset.type)$('type').value=document.body.dataset.type;applyPreset(true)}
   const d=new Date();d.setDate(d.getDate()+1);if(!$('date').value)$('date').value=d.toISOString().slice(0,10);}
 function save(){const s={lang};keep.forEach(k=>s[k]=$(k).value);try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
 function applyPreset(force){const p=PRESET[$('type').value];['name','rules','out'].forEach(k=>{if(force||!$(k).value.trim()||Object.values(PRESET).some(x=>x[k]===$(k).value))$(k).value=p[k]})}
